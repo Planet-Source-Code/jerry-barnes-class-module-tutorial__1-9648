@@ -1,0 +1,344 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Class Module Tutorial</title>
+</head>
+
+<body>
+
+<p align="center"><font size="4"><b>Class Module Tutorial</b></font></p>
+<p align="center"><font size="4"><b>for Beginners</b></font></p>
+<p align="left">This project is designed to be tutorial for implementing a class module.  I wrote this in<br>
+order to learn more about modules.  I used character replacement as the task since it<br>
+may be of use after the project is entered.&nbsp; I hope that it will be of assistance to others.&nbsp;&nbsp;</p>
+<p align="left">It should take the user between 30 minutes and 45 minutes to
+complete this project.<br>
+<br>
+This program allows the user to replace a chosen character with another character in<br>
+a given string.<br>
+<br>
+Steps.</p>
+<p align="left">1.&nbsp; Open Visual Basic and select a standard EXE project.</p>
+<p align="left">2.&nbsp; Rename the form frmMain and save the project to
+whatever name you like.</p>
+<p align="left">3.&nbsp; Add the following controls to the form.</p>
+<table border="1" width="100%">
+  <tr>
+    <td width="33%">Label1</td>
+    <td width="33%">Caption</td>
+    <td width="34%">Enter String</td>
+  </tr>
+  <tr>
+    <td width="33%">Label2</td>
+    <td width="33%">Caption</td>
+    <td width="34%">Enter Character</td>
+  </tr>
+  <tr>
+    <td width="33%">Label3</td>
+    <td width="33%">Caption</td>
+    <td width="34%">Enter Replacement</td>
+  </tr>
+  <tr>
+    <td width="33%">txtString</td>
+    <td width="33%">Text</td>
+    <td width="34%">&quot;&quot;</td>
+  </tr>
+  <tr>
+    <td width="33%">txtChar</td>
+    <td width="33%">Text</td>
+    <td width="34%">&quot;&quot;</td>
+  </tr>
+  <tr>
+    <td width="33%">&nbsp;</td>
+    <td width="33%">Maxlength</td>
+    <td width="34%">1</td>
+  </tr>
+  <tr>
+    <td width="33%">txtReplacement</td>
+    <td width="33%">Text</td>
+    <td width="34%">&quot;&quot;</td>
+  </tr>
+  <tr>
+    <td width="33%">&nbsp;</td>
+    <td width="33%">Maxlength</td>
+    <td width="34%">1</td>
+  </tr>
+  <tr>
+    <td width="33%">Frame1</td>
+    <td width="33%">Caption</td>
+    <td width="34%">Out Come</td>
+  </tr>
+  <tr>
+    <td width="33%">Label4</td>
+    <td width="33%">Caption</td>
+    <td width="34%">Result</td>
+  </tr>
+  <tr>
+    <td width="33%">Label5</td>
+    <td width="33%">Caption</td>
+    <td width="34%">Number of Replacements</td>
+  </tr>
+  <tr>
+    <td width="33%">lblResult</td>
+    <td width="33%">Caption</td>
+    <td width="34%">&quot;&quot;</td>
+  </tr>
+  <tr>
+    <td width="33%">&nbsp;</td>
+    <td width="33%">BorderStyle</td>
+    <td width="34%">1-Fixed Single</td>
+  </tr>
+  <tr>
+    <td width="33%">lblCount</td>
+    <td width="33%">Caption</td>
+    <td width="34%">&quot;&quot;</td>
+  </tr>
+  <tr>
+    <td width="33%">&nbsp;</td>
+    <td width="33%">BorderStyle</td>
+    <td width="34%">1-FixedSingle</td>
+  </tr>
+  <tr>
+    <td width="33%">cmdReplace</td>
+    <td width="33%">Caption</td>
+    <td width="34%">Replace</td>
+  </tr>
+  <tr>
+    <td width="33%">cmdClear</td>
+    <td width="33%">Caption</td>
+    <td width="34%">Clear</td>
+  </tr>
+  <tr>
+    <td width="33%">cmdExit</td>
+    <td width="33%">Caption</td>
+    <td width="34%">Exit</td>
+  </tr>
+</table>
+<p align="center"><img border="0" src="http://www.geocities.com/jerry_m_barnes/images/cmt01.jpg" width="335" height="315"></p>
+<p align="center">The form should be similar to this when you are finished.</p>
+<p align="left">4.&nbsp; Right Click on Project1 in the Project window.&nbsp;
+Select Add from the menu.&nbsp; Select Class Module.&nbsp; Select Class Module
+again.</p>
+<p align="left">5.&nbsp; Right Click on the Class Module in the Project
+Window.&nbsp; Change the name property to ReplaceChar.&nbsp; This will be the
+name of the object.</p>
+<p align="left">6.&nbsp; Declare the following variables and events.</p>
+<blockquote>
+  <p align="left">Option Explicit<br>
+  <br>
+  Private mToBeReplaced As String * 1<br>
+  <br>
+  Private mReplaceWith As String * 1<br>
+  <br>
+  Private mCount As Integer<br>
+  <br>
+  Public Event NoSubstitute(strString As String)</p>
+  <p align="left"><i>Notice that the variables are private and the the event is
+  public.&nbsp; The variables actually hold values for the properties.&nbsp;
+  Since they are private, the program itself cannot manipulate them.&nbsp; Only
+  the module can change them.&nbsp; Two of the strings are limited to 1
+  character in length.</i></p>
+</blockquote>
+<p align="left">7.&nbsp; Go to the Tool menu and select Add Procedure.&nbsp;
+Type the name of the property (ToBeReplaced) and select property option.&nbsp; The scope
+should be public for this property.  Click OK.  This will create two subs.  One to
+send data to the main project (Get) and one to receive data (Let).</p>
+<p align="left">8.&nbsp; Enter the following code for the two properties.&nbsp;
+The ToBeReplaced property hold the value of the character that will be replaced.</p>
+<blockquote>
+  <p align="left">Public Property Get ToBeReplaced() As String<br>
+  &nbsp;&nbsp;&nbsp; ToBeReplaced = mToBeReplaced<br>
+  End Property<br>
+  <i>Get is used to send information from the object to the program.&nbsp; The
+  program is getting information.&nbsp; Notice, the properties equal the
+  variable declared in the declartions section.</i></p>
+  <p align="left">Public Property Let ToBeReplaced(ByVal strChoice As String)<br>
+  &nbsp;&nbsp;&nbsp; mToBeReplaced = strChoice<br>
+  End Property&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+  <p align="left"><i>Let is used to retrieve value from the program.&nbsp; The
+  program lets the module have information.&nbsp;</i></p>
+</blockquote>
+<p align="left">9.&nbsp; Repeat the above the process for the ReplaceWith
+Property.&nbsp; The ReplaceWith property holds the value to replace the desired
+character with.</p>
+<blockquote>
+  <p align="left">Public Property Get ReplaceWith() As String<br>
+  &nbsp;&nbsp;&nbsp; ReplaceWith = mReplaceWith<br>
+  End Property<br>
+  <br>
+  Public Property Let ReplaceWith(ByVal strChoice As String)<br>
+  &nbsp;&nbsp;&nbsp; mReplaceWith = strChoice<br>
+  End Property</p>
+</blockquote>
+<p align="left">10.&nbsp; Finally, add the Count Property.&nbsp; It will be read
+only so it does not have a let property.&nbsp; The count property will return to
+the program the number of substitutions made.</p>
+<blockquote>
+  <p align="left">Public Property Get Count() As Integer<br>
+  &nbsp;&nbsp;&nbsp; Count = mCount<br>
+  End Property</p>
+</blockquote>
+<p align="left">11.&nbsp; Now, we are going to add a method to the class
+module.&nbsp; Methods can consist of funtions or procedures.&nbsp; This method
+scans the string and makes the replacements.&nbsp; It also raises an
+event.&nbsp; Look toward the bottom of the code.&nbsp; If no replacements are
+made, an event is raised.&nbsp; This will be used in the form's code.&nbsp;
+Enter the following code.</p>
+<blockquote>
+  <p align="left">Public Function ReplaceChar(strString As String) As String<br>
+  &nbsp;&nbsp;&nbsp; Dim intLoop As Integer<br>
+  &nbsp;&nbsp;&nbsp; Dim intLen As Integer<br>
+  <br>
+  &nbsp;&nbsp;&nbsp; Dim strTemp As String<br>
+  &nbsp;&nbsp;&nbsp; Dim strTest As String<br>
+  &nbsp;&nbsp;&nbsp; Dim strHold As String<br>
+  <br>
+  &nbsp;&nbsp;&nbsp; mCount = 0<br>
+  &nbsp;&nbsp;&nbsp; <font color="#008000">'The replacement count should be zero.</font><br>
+  <br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp; '#######################################<br>
+  &nbsp;&nbsp;&nbsp; '# The following code scans the string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  #<br>
+  &nbsp;&nbsp;&nbsp; '# and makes the desired replacements.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  #<br>
+  &nbsp;&nbsp;&nbsp; '#######################################</font><br>
+  &nbsp;&nbsp;&nbsp; intLoop = 1<br>
+  &nbsp;&nbsp;&nbsp; strTemp = ""<br>
+  &nbsp;&nbsp;&nbsp; strHold = strString<br>
+  &nbsp;&nbsp;&nbsp; intLen = Len(strString) + 1<br>
+  &nbsp;&nbsp;&nbsp; Do Until intLoop = intLen<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intLoop = intLoop + 1<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strTest = Left(strHold, 1)<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If strTest = mToBeReplaced Then<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#008000">'mTobeReplaced comes
+  from the properties.</font><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strTemp = strTemp &amp; mReplaceWith<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#008000">'mReplaceWith comes from
+  the properties.</font><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mCount = mCount + 1<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Else<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strTemp = strTemp &amp; Left(strHold, 1)<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; End If<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strHold = Right(strHold, Len(strHold) - 1)<br>
+  &nbsp;&nbsp;&nbsp; Loop<br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp; '#######################################<br>
+  &nbsp;&nbsp;&nbsp; '# Scanning and replacement code ends.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  #<br>
+  &nbsp;&nbsp;&nbsp; '#######################################</font><br>
+  <br>
+  &nbsp;&nbsp;&nbsp; If mCount &lt;> 0 Then<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ReplaceChar = strTemp<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Write the new string.<br>
+  &nbsp;&nbsp;&nbsp; Else<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RaiseEvent NoSubstitute(strTemp)<br>
+  &nbsp;&nbsp;&nbsp; End If<br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp; 'If mCount is zero the no replacements<br>
+  &nbsp;&nbsp;&nbsp; 'were made.  This means that we want to<br>
+  &nbsp;&nbsp;&nbsp; 'raise the event NoSubstitute.</font><br>
+  <br>
+  End Function</p>
+</blockquote>
+<p align="left">12.&nbsp; Provide everything was entered correctly, the class
+module is fully functional now.&nbsp; Save it and go back to the form.</p>
+<p align="left">13.&nbsp; Enter the following declaration.&nbsp; This declares a
+variable as a type of the created object.</p>
+<blockquote>
+  <p align="left">Option Explicit<br>
+  Dim WithEvents ReplacementString As ReplaceChar</p>
+  <p align="left"><i>Note that WithEvents is not required.&nbsp; However, it is
+  necessary if you want to use events.</i></p>
+</blockquote>
+<p align="left">14.&nbsp; Enter the code for the cmdReplace_Click Event.&nbsp;
+You have to create a new instance of the object first.&nbsp; Next, set the
+properties ToBeReplaced and ReplaceWith.&nbsp; Next call the ReplaceChar
+method.&nbsp; Finally use the Count property to get the number of replacements.</p>
+<blockquote>
+  <p align="left">Private Sub cmdReplace_Click()<br>
+  <br>
+  &nbsp;&nbsp;&nbsp; Set ReplacementString = New ReplaceChar<br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp; 'Create a new object of the class that<br>
+  &nbsp;&nbsp;&nbsp; 'was created.</font><br>
+  <br>
+  &nbsp;&nbsp;&nbsp; ReplacementString.ToBeReplaced = txtChar.Text<br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp; 'Send the property ToBeReplaced.  This<br>
+  &nbsp;&nbsp;&nbsp; 'is a Let sub in the module.</font><br>
+  <br>
+  &nbsp;&nbsp;&nbsp; ReplacementString.ReplaceWith = txtReplacement.Text<br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp; 'Send the property ReplaceWith.  This<br>
+  &nbsp;&nbsp;&nbsp; 'is a Let sub in the module.<br>
+  </font><br>
+  &nbsp;&nbsp;&nbsp; lblResult.Caption = ReplacementString.ReplaceChar(txtString.Text)<br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp; 'Set the caption of lblResult with the<br>
+  &nbsp;&nbsp;&nbsp; 'results of the Replace method.</font><br>
+  <br>
+  &nbsp;&nbsp;&nbsp; lblCount.Caption = ReplacementString.Count<br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp; 'Get the count through the count property.<br>
+  &nbsp;&nbsp;&nbsp; 'This is a Get sub in the module.</font><br>
+  End Sub<br>
+  </p>
+</blockquote>
+<p align="left">15.&nbsp; Program the event procedure for the class
+module.&nbsp; The event fires if no replacements were made.&nbsp; You can code
+whatever actions want to transpire when the event happens.&nbsp; I used a
+message box to alert the user that no changes were made.</p>
+<blockquote>
+  <p align="left">Private Sub Replacementstring_NoSubstitute(strString As String)<br>
+  <font color="#008000">    'This subs only purpose is to demonstrate using an event.  StrString is passed<br>
+    'from the module back to the program.</font><br>
+  <br>
+  &nbsp;&nbsp;&nbsp; MsgBox "No substitutions were made in " &amp; strString, vbOKOnly, "Warning"<br>
+  End Sub</p>
+</blockquote>
+<p align="left">16.&nbsp; Enter code for the final two command buttons.</p>
+<blockquote>
+  <p align="left">Private Sub cmdClear_Click()<br>
+  <br>
+  &nbsp;&nbsp;&nbsp; Set ReplacementString = Nothing<br>
+  &nbsp;&nbsp;&nbsp;<font color="#008000"> 'Destroy the object so resources<br>
+  &nbsp;&nbsp;&nbsp; 'are not wasted.</font><br>
+  <br>
+  &nbsp;&nbsp;&nbsp; lblResult.Caption = ""<br>
+  &nbsp;&nbsp;&nbsp; lblCount.Caption = ""<br>
+  &nbsp;&nbsp;&nbsp; txtChar.Text = ""<br>
+  &nbsp;&nbsp;&nbsp; txtReplacement.Text = ""<br>
+  &nbsp;&nbsp;&nbsp; txtString.Text = ""<br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp;</font> <font color="#008000">'Clear the controls.</font><br>
+  <br>
+  &nbsp;&nbsp;&nbsp; txtString.SetFocus<br>
+  <font color="#008000">&nbsp;&nbsp;&nbsp;</font> <font color="#008000">'Return to the first text box.</font><br>
+  End Sub<br>
+  <br>
+  Private Sub cmdExit_Click()<br>
+  <br>
+  &nbsp;&nbsp;&nbsp; Set ReplacementString = Nothing<br>
+  &nbsp;&nbsp;&nbsp; '<font color="#008000">Tidy up.  Don't waste resources.</font><br>
+  <br>
+  &nbsp;&nbsp;&nbsp; End<br>
+  End Sub</p>
+</blockquote>
+<p align="left">17.&nbsp; That's it.&nbsp; The program should run.&nbsp; The
+module can be inserted in other programs now.&nbsp; It does not have to be used
+with text box or labels.&nbsp; It can be used purely in code.&nbsp; For example.</p>
+<blockquote>
+  <p align="left">Dim WithEvents RepStr As ReplaceChar</p>
+  <p align="left">Set RepStr = New ReplaceChar</p>
+  <p align="left">RepStr.ToBeReplace = &quot; &quot;</p>
+  <p align="left">RepStr.ReplaceWith = &quot;_&quot;</p>
+  <p align="left">strString = RepStr.ReplaceChar(strString)</p>
+  <p align="left">if RepStr.Count = 0 then&nbsp;</p>
+  <p align="left">&nbsp;&nbsp;&nbsp; msgbox &quot;No subs made&quot;</p>
+  <p align="left">End if</p>
+</blockquote>
+<p align="left">This would replace all space in a string with an
+underscore.&nbsp; Pretty useful.</p>
+<p align="left">&nbsp;</p>
+<p align="left">  If you have any suggestions, please feel free to contact me at
+jerry_m_barnes@hotmail.com.</p>
+
+</body>
+
+</html>
